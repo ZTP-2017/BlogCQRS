@@ -20,7 +20,7 @@ namespace Blog.WriteSide.Command.Article
             Title = title;
             Date = date;
             Text = text;
-            Image = Image;
+            Image = image;
         }
     }
 }

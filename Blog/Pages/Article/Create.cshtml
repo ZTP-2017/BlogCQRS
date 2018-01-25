@@ -1,0 +1,62 @@
+﻿@page
+@model CreateModel
+
+@{
+    ViewBag.Title = "Create article";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="inputTitle">
+            Title
+        </label>
+        <input id="inputTitle" 
+               class="form-control" 
+               type="text" 
+               placeholder="Article title"
+               asp-for="ArticleModel.Title" />
+    </div>
+    
+    <div class="form-group">
+        <label for="inputText">
+            Text
+        </label>
+        <textarea id="inputText" 
+            class="form-control" 
+            placeholder="Text"
+            asp-for="ArticleModel.Text">
+        </textarea>
+    </div>
+    
+    <div class="form-group">
+        <label for="inputDate">
+            Date
+        </label>
+        <input id="inputDate"
+               class="form-control"
+               type="date" 
+               asp-for="ArticleModel.Date" />
+    </div>
+    
+    <div class="form-group">
+        <label for="inputImage">
+            Image
+        </label>
+        <input id="inputImage"
+               class="form-control" 
+               type="file" 
+               asp-for="ArticleModel.Image" />
+    </div>
+
+    <button class="btn btn-primary"
+            type="submit">
+        Create
+    </button>
+    
+    <a class="btn btn-primary" 
+        asp-page="/Index">
+        Cancel
+    </a>
+</form>

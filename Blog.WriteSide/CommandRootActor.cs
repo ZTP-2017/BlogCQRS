@@ -10,6 +10,7 @@ namespace Blog.WriteSide
             var articleCommandHandler = Context.ActorOf<ArticleCommandHandler>();
 
             Receive<AddArticleCommand>(message => articleCommandHandler.Forward(message));
+            Receive<RemoveArticleCommand>(message => articleCommandHandler.Forward(message));
         }
     }
 }

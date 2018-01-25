@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Akka.Actor;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +23,8 @@ namespace Blog
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            
+            services.AddSingleton(typeof(ActorSystem), (serviceProvider) => ActorSystem.Create("CQRS"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -23,7 +23,7 @@ namespace Blog.Context
                 return;
             }
             
-            optionsBuilder.UseMySql(@"");
+            optionsBuilder.UseMySql(@"Server=localhost;database=blog;uid=root;pwd=password;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

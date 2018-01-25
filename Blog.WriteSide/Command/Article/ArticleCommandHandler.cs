@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Akka.Actor;
 using Blog.Context;
 using Blog.Context.Model;
 using Core.CQRS.Command;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blog.WriteSide.Command.Article
 {
@@ -11,6 +13,7 @@ namespace Blog.WriteSide.Command.Article
         public ArticleCommandHandler()
         {
             ReceiveAsync<AddArticleCommand>(Handle);
+            ReceiveAsync<RemoveArticleCommand>(Handle);
         }
 
         private async Task Handle(AddArticleCommand addArticle)
@@ -32,6 +35,25 @@ namespace Blog.WriteSide.Command.Article
                 await context.SaveChangesAsync();
             }
             
+            Sender.Tell(new CommandResult(), Self);
+        }
+        
+        private async Task Handle(RemoveArticleCommand removeArticle)
+        {
+            using (var context = new MySqlDbContext())
+            {
+                var entityToRemove = context.Articles
+                    .Include(x => x.Content)
+                    .FirstOrDefault(x => x.Id == removeArticle.Id);
+
+                if (entityToRemove != null)
+                {
+                    context.Remove(entityToRemove.Content);
+                    
+                    await context.SaveChangesAsync();
+                }
+            }
+
             Sender.Tell(new CommandResult(), Self);
         }
     }
