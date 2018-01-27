@@ -1,12 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <RuntimeFrameworkVersion>2.0.4</RuntimeFrameworkVersion>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Blog.Context\Blog.Context.csproj" />
     <ProjectReference Include="..\Core.CQRS\Core.CQRS.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Akka" Version="1.3.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.1" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.1" />
   </ItemGroup>
 </Project>

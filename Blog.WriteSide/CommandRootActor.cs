@@ -1,5 +1,5 @@
 ﻿using Akka.Actor;
-using Blog.WriteSide.Command.Article;
+using Blog.WriteSide.Command;
 
 namespace Blog.WriteSide
 {
@@ -7,10 +7,11 @@ namespace Blog.WriteSide
     {
         public CommandRootActor()
         {
-            var articleCommandHandler = Context.ActorOf<ArticleCommandHandler>();
+            var addArticleCommandHandler = Context.ActorOf<AddArticleCommandHandler>();
+            Receive<AddArticleCommand>(message => addArticleCommandHandler.Forward(message));
 
-            Receive<AddArticleCommand>(message => articleCommandHandler.Forward(message));
-            Receive<RemoveArticleCommand>(message => articleCommandHandler.Forward(message));
+            var addSectionCommandHandler = Context.ActorOf<AddSectionCommandHandler>();
+            Receive<AddSectionCommand>(message => addSectionCommandHandler.Forward(message));
         }
     }
 }
