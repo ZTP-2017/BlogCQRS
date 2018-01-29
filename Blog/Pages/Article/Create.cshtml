@@ -20,6 +20,17 @@
     </div>
     
     <div class="form-group">
+        <label for="inputSection">
+            Section
+        </label>
+        <select id="inputSection" 
+                class="form-control" 
+                asp-for="ArticleModel.SectionId" 
+                asp-items="@Model.Sections">
+        </select>
+    </div>
+    
+    <div class="form-group">
         <label for="inputText">
             Text
         </label>

@@ -1,39 +1,32 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Akka.Actor;
-using Blog.ReadSide;
 using Blog.ViewModels;
 using Blog.WriteSide;
+using Blog.WriteSide.Command;
+using Blog.WriteSide.Events;
 using Core.CQRS.Command;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Blog.Pages.Article
+namespace Blog.Pages.Section
 {
     public class CreateModel : PageModel
     {
         [BindProperty]
-        public ArticleModel ArticleModel { get; set; }
+        public SectionModel Section { get; set; }
         
-        private readonly IActorRef _queryRootActor;
         private readonly IActorRef _commandRootActor;
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IActorRef _eventRootActor;
         
-        public CreateModel(ActorSystem actorSystem, IHostingEnvironment hostingEnvironment)
+        public CreateModel(IActorRefFactory actorRefFactory)
         {
-            _queryRootActor = actorSystem.ActorOf<QueryRootActor>();
-            _commandRootActor = actorSystem.ActorOf<CommandRootActor>();
-            _hostingEnvironment = hostingEnvironment;
+            _commandRootActor = actorRefFactory.ActorOf<CommandRootActor>();
+            _eventRootActor = actorRefFactory.ActorOf<EventRootActor>();
         }
         
         public void OnGet()
         {
-            ArticleModel = new ArticleModel
-            {
-                Date = DateTime.Now
-            };
+            Section = new SectionModel();
         }
         
         public async Task<IActionResult> OnPostAsync()
@@ -42,34 +35,16 @@ namespace Blog.Pages.Article
             {
                 return Page();
             }
-            
-            if (ArticleModel.Image != null)
-            {
-                ArticleModel.ImageUrl = $"~/Uploads/{ArticleModel.Image.FileName}";
-                await UploadImage();
-            }
 
-           // await CreateArticle();
+            var result = await _commandRootActor
+                .Ask<IdCommandResult>(new AddSectionCommand(Section.Name));
+
+            if (result.Success)
+            {
+                await _eventRootActor.Ask<CommandResult>(new SectionAddedEvent(result.Id));
+            }
 
             return RedirectToPage("/Index");
-        }
-        
-//        private async Task CreateArticle()
-//        {
-//            await _commandRootActor
-//                .Ask<CommandResult>(new AddArticleCommand(ArticleModel.Title, 
-//                    ArticleModel.Date, ArticleModel.Text, ArticleModel.ImageUrl));
-//        }
-        
-        private async Task UploadImage()
-        {
-            var uploadsDirectoryPath = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
-            var uploadedfilePath = Path.Combine(uploadsDirectoryPath, ArticleModel.Image.FileName);
-
-            using (var fileStream = new FileStream(uploadedfilePath, FileMode.Create))
-            {
-                await ArticleModel.Image.CopyToAsync(fileStream);
-            }
         }
     }
 }

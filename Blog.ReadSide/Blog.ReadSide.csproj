@@ -3,10 +3,19 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Blog.Context\Blog.Context.csproj" />
+    <ProjectReference Include="..\Blog.WriteSide\Blog.WriteSide.csproj">
+      <Project>{0A62106E-007E-4F4E-BBA3-327E1DC46AE6}</Project>
+      <Name>Blog.WriteSide</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core.CQRS\Core.CQRS.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Akka" Version="1.3.3" />
+    <PackageReference Include="Dapper" Version="1.50.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="MySqlConnector, Version=0.32.0.0, Culture=neutral, PublicKeyToken=d33d3e53aa5f8c92">
+      <HintPath>..\..\..\..\..\.nuget\packages\mysqlconnector\0.32.0\lib\netstandard2.0\MySqlConnector.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

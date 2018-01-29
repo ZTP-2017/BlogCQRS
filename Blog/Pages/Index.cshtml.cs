@@ -3,13 +3,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Akka.Actor;
 using Blog.Common;
-using Blog.Context.Model;
 using Blog.ReadSide;
-using Blog.ReadSide.Query.Article;
+using Blog.ReadSide.Model;
+using Blog.ReadSide.Query;
 using Blog.ViewModels;
 using Blog.WriteSide;
-using Blog.WriteSide.Command.Article;
-using Core.CQRS.Command;
+using Blog.WriteSide.Model.ReadSide;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -17,30 +16,32 @@ namespace Blog.Pages
 {
     public class IndexModel : PageModel
     {
-        public ArticleModel[] Articles { get; set; }
+        public List<SectionModel> Sections { get; set; }
         
-        private readonly IActorRef _commandRootActor;
         private readonly IActorRef _queryRootActor;
 
-        public IndexModel(ActorSystem actorSystem)
+        public IndexModel(IActorRefFactory actorRefFactory)
         {
-            _commandRootActor = actorSystem.ActorOf<CommandRootActor>();
-            _queryRootActor = actorSystem.ActorOf<QueryRootActor>();
+            _queryRootActor = actorRefFactory.ActorOf<QueryRootActor>();
         }
         
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
-            Articles = (await _queryRootActor
-                .Ask<IEnumerable<ArticleRecord>>(new GetArticlesListQuery()))
-                .Select(Helpers.MapArticleRecordToArticleModel)
+            Sections = new List<SectionModel>();
+            
+            var sections = (await _queryRootActor
+                .Ask<IEnumerable<SectionDetailsRecord>>(new GetSectionList()))
                 .ToArray();
-        }
-        
-        public async Task<IActionResult> OnPostDeleteAsync(int id)
-        {
-            await _commandRootActor.Ask<CommandResult>(new RemoveArticleCommand(id));
+            
+            foreach (var section in sections)
+            {
+                var sectionArticles = await _queryRootActor
+                    .Ask<IEnumerable<ArticleListItemRecord>>(new GetSectionArticleListItems(section.Id));
+                
+                Sections.Add(Helpers.MapToSectionModel(section, sectionArticles));
+            }
 
-            return RedirectToPage("/Index");
+            return Page();
         }
     }
 }

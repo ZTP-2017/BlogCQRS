@@ -11,5 +11,6 @@ namespace Blog.ViewModels
         public string Text { get; set; }
         public string ImageUrl { get; set; }
         public IFormFile Image { get; set; }
+        public int SectionId { get; set; }
     }
 }

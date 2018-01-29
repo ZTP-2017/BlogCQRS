@@ -4,8 +4,13 @@ using Core.CQRS.Query;
 
 namespace Blog.ReadSide.Query
 {
-    public class GetArticleListItems : IQuery<IEnumerable<ArticleListItemRecord>>
+    public class GetSectionArticleListItems : IQuery<IEnumerable<ArticleListItemRecord>>
     {
-        
+        public int Id { get; }
+
+        public GetSectionArticleListItems(int id)
+        {
+            Id = id;
+        }
     }
 }

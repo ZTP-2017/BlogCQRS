@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Akka.Actor;
 using Blog.Common;
-using Blog.Context.Model;
 using Blog.ReadSide;
-using Blog.ReadSide.Query.Article;
+using Blog.ReadSide.Model;
+using Blog.ReadSide.Query;
 using Blog.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -17,9 +17,9 @@ namespace Blog.Pages.Article
         
         private readonly IActorRef _queryRootActor;
         
-        public DetailsModel(ActorSystem actorSystem)
+        public DetailsModel(IActorRefFactory actorRefFactory)
         {
-            _queryRootActor = actorSystem.ActorOf<QueryRootActor>();
+            _queryRootActor = actorRefFactory.ActorOf<QueryRootActor>();
         }
         
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -30,9 +30,9 @@ namespace Blog.Pages.Article
             }
 
             var article = await _queryRootActor
-                .Ask<ArticleRecord>(new GetArticleQuery(id.Value));
+                .Ask<ArticleDetailsRecord>(new GetArticleDetails(id.Value));
 
-            ArticleModel = Helpers.MapArticleRecordToArticleModel(article);
+            ArticleModel = Helpers.MapToArticleModel(article);
 
             return Page();
         }

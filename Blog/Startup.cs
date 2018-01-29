@@ -24,7 +24,7 @@ namespace Blog
         {
             services.AddMvc();
             
-            services.AddSingleton(typeof(ActorSystem), (serviceProvider) => ActorSystem.Create("CQRS"));
+            services.AddSingleton(typeof(IActorRefFactory), (serviceProvider) => ActorSystem.Create("CQRS"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
