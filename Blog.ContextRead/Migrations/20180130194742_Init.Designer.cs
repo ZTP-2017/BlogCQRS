@@ -11,7 +11,7 @@ using System;
 namespace Blog.ContextRead.Migrations
 {
     [DbContext(typeof(MySqlDbContextRead))]
-    [Migration("20180130000959_Init")]
+    [Migration("20180130194742_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,12 +21,12 @@ namespace Blog.ContextRead.Migrations
                 .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125");
 
-            modelBuilder.Entity("Blog.ContextRead.Models.ArticleRecordRead", b =>
+            modelBuilder.Entity("Blog.ContextModels.ArticleRecord", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("Date");
+                    b.Property<string>("Date");
 
                     b.Property<string>("ImageUrl");
 
@@ -43,7 +43,7 @@ namespace Blog.ContextRead.Migrations
                     b.ToTable("Article");
                 });
 
-            modelBuilder.Entity("Blog.ContextRead.Models.SectionRecordRead", b =>
+            modelBuilder.Entity("Blog.ContextModels.SectionRecord", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -55,9 +55,9 @@ namespace Blog.ContextRead.Migrations
                     b.ToTable("Section");
                 });
 
-            modelBuilder.Entity("Blog.ContextRead.Models.ArticleRecordRead", b =>
+            modelBuilder.Entity("Blog.ContextModels.ArticleRecord", b =>
                 {
-                    b.HasOne("Blog.ContextRead.Models.SectionRecordRead", "Section")
+                    b.HasOne("Blog.ContextModels.SectionRecord", "Section")
                         .WithMany("Articles")
                         .HasForeignKey("SectionId")
                         .OnDelete(DeleteBehavior.Cascade);

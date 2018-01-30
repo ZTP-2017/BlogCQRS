@@ -2,18 +2,18 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Blog.Models
+namespace Blog.ContextModels
 {
-    public class SectionRecordWrite
+    public class SectionRecord
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public IEnumerable<ArticleRecordWrite> Articles { get; set; }
+        public IEnumerable<ArticleRecord> Articles { get; set; }
     }
     
-    public class SectionRecordConfiguration : IEntityTypeConfiguration<SectionRecordWrite>
+    public class SectionRecordConfiguration : IEntityTypeConfiguration<SectionRecord>
     {
-        public void Configure(EntityTypeBuilder<SectionRecordWrite> builder)
+        public void Configure(EntityTypeBuilder<SectionRecord> builder)
         {
             builder.ToTable("Section");
         }

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Akka.Actor;
+using Blog.ContextModels;
 using Blog.ContextWrite;
-using Blog.Models;
 
 namespace Blog.WriteSide.Command
 {
@@ -16,11 +16,11 @@ namespace Blog.WriteSide.Command
         {
             using (var context = new MySqlDbContextWrite())
             {
-                var article = new ArticleRecordWrite
+                var article = new ArticleRecord
                 {
                     SectionId = addArticle.SectionId,
                     Title = addArticle.Title,
-                    Date = addArticle.Date,
+                    Date = addArticle.Date.Date.ToString(),
                     Text = addArticle.Text,
                     ImageUrl = addArticle.ImageUrl
                 };

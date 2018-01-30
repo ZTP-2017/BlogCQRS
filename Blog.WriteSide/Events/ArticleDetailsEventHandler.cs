@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Akka.Actor;
+using Blog.ContextModels;
 using Blog.ContextRead;
-using Blog.ContextRead.Models;
 using Blog.ContextWrite;
 using Core.CQRS.Command;
 using Microsoft.EntityFrameworkCore;
@@ -17,12 +17,12 @@ namespace Blog.WriteSide.Events
 
         private async Task Handle(ArticleAddedEvent @event)
         {
-            ArticleRecordRead record;
+            ArticleRecord record;
             using (var context = new MySqlDbContextWrite())
             {
                 var article = await context.Articles.FirstOrDefaultAsync((x => x.Id == @event.Id));
 
-                record = new ArticleRecordRead
+                record = new ArticleRecord
                 {
                     Id = article.Id,
                     Title = article.Title,

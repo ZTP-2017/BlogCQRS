@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Akka.Actor;
+using Blog.ContextModels;
 using Blog.ContextWrite;
-using Blog.Models;
 
 namespace Blog.WriteSide.Command
 {
@@ -14,7 +14,7 @@ namespace Blog.WriteSide.Command
 
         private async Task Handle(AddSectionCommand addSection)
         {
-            var section = new SectionRecordWrite
+            var section = new SectionRecord
             {
                 Name = addSection.Name
             };

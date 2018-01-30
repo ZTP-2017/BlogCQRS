@@ -28,7 +28,7 @@ namespace Blog.ContextRead.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Date = table.Column<DateTime>(nullable: false),
+                    Date = table.Column<string>(nullable: true),
                     ImageUrl = table.Column<string>(nullable: true),
                     SectionId = table.Column<int>(nullable: false),
                     Text = table.Column<string>(nullable: true),

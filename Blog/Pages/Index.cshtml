@@ -4,38 +4,26 @@
     ViewData["Title"] = "Blog";
 }
 
-
 <form method="post">
-    
     @foreach (var _section in Model.Sections)
     {
         <h3 style="margin-top: 10px;">@_section.Name</h3>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-            
-            @foreach (var article in _section.Articles)
+        if (_section.Articles.Any())
+        {
+            foreach (var article in _section.Articles)
             {
+                <hr />
                 @Html.HiddenFor(m => @article.Id)
-                <tr>
-                    <td>
-                        <a asp-page="./Article/Details"*@
-                           asp-route-id="@article.Id">
-                            @article.Title
-                        </a>
-                    </td>
-                    <td>
-                        @article.Date
-                    </td>
-                </tr>
-                }
-            </tbody>
-        </table>
+                <h5>
+                    <a asp-page="./Article/Details"
+                        asp-route-id="@article.Id"
+                        style="font-weight: 700; color: #000000;">
+                        @article.Title
+                    </a>
+                </h5>
+                <h7>@article.Date</h7>
+            }
+        }
     }
 </form>

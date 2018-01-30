@@ -1,4 +1,4 @@
-﻿using Blog.ContextRead.Models;
+﻿using Blog.ContextModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace Blog.ContextRead
@@ -7,8 +7,8 @@ namespace Blog.ContextRead
     {
         private readonly string _connectionString = @"Server=localhost;database=blog_read;uid=root;pwd=password;";
         
-        public DbSet<ArticleRecordRead> ArticleDetails { get; set; }
-        public DbSet<SectionRecordRead> SectionDetails { get; set; }
+        public DbSet<ArticleRecord> ArticleDetails { get; set; }
+        public DbSet<SectionRecord> SectionDetails { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

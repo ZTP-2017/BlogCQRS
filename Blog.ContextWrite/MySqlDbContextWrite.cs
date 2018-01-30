@@ -1,4 +1,4 @@
-﻿using Blog.Models;
+﻿using Blog.ContextModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace Blog.ContextWrite
@@ -7,8 +7,8 @@ namespace Blog.ContextWrite
     {
         private readonly string _connectionString = @"Server=localhost;database=blog_write;uid=root;pwd=password;";
         
-        public DbSet<ArticleRecordWrite> Articles { get; set; }
-        public DbSet<SectionRecordWrite> Sections { get; set; }
+        public DbSet<ArticleRecord> Articles { get; set; }
+        public DbSet<SectionRecord> Sections { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
