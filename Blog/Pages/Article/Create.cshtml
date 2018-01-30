@@ -17,6 +17,9 @@
                type="text" 
                placeholder="Article title"
                asp-for="ArticleModel.Title" />
+        <span class="error">
+            @Html.ValidationMessageFor(m => m.ArticleModel.Title)
+        </span>
     </div>
     
     <div class="form-group">
@@ -39,6 +42,9 @@
             placeholder="Text"
             asp-for="ArticleModel.Text">
         </textarea>
+        <span class="error">
+            @Html.ValidationMessageFor(m => m.ArticleModel.Text)
+        </span>
     </div>
     
     <div class="form-group">

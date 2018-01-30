@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Akka.Actor;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -22,7 +20,10 @@ namespace Blog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
+            
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             
             services.AddSingleton(typeof(IActorRefFactory), (serviceProvider) => ActorSystem.Create("CQRS"));
         }

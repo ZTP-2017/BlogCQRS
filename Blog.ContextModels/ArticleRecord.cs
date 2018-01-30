@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Blog.ContextModels
@@ -7,7 +8,7 @@ namespace Blog.ContextModels
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
         public string Text { get; set; }
         public string ImageUrl { get; set; }
         public int SectionId { get; set; }

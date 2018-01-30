@@ -1,4 +1,5 @@
 ﻿using System;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 
 namespace Blog.ViewModels
@@ -12,5 +13,17 @@ namespace Blog.ViewModels
         public string ImageUrl { get; set; }
         public IFormFile Image { get; set; }
         public int SectionId { get; set; }
+    }
+    
+    public class ArticleModelValidator : AbstractValidator<ArticleModel> 
+    {
+        public ArticleModelValidator()
+        {
+            RuleFor(x => x.Title).NotNull()
+                .WithMessage("Title is required.");
+            
+            RuleFor(x => x.Text).NotNull()
+                .WithMessage("Text is required.");
+        }
     }
 }

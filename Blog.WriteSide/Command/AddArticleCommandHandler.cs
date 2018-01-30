@@ -20,7 +20,7 @@ namespace Blog.WriteSide.Command
                 {
                     SectionId = addArticle.SectionId,
                     Title = addArticle.Title,
-                    Date = addArticle.Date.Date.ToString(),
+                    Date = addArticle.Date.Date,
                     Text = addArticle.Text,
                     ImageUrl = addArticle.ImageUrl
                 };
