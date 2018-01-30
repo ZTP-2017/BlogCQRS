@@ -8,7 +8,7 @@ namespace Blog.ReadSide.Query
 {
     public class ArticleHandler : ReceiveActor
     {
-        private readonly string _connectionString = @"Server=localhost;database=blog_cqrs;uid=root;pwd=password;";
+        private readonly string _connectionString = @"Server=localhost;database=blog_read;uid=root;pwd=password;";
 
         public ArticleHandler()
         {
@@ -18,7 +18,7 @@ namespace Blog.ReadSide.Query
 
         private async Task Handle(GetArticleDetails query)
         {
-            var sql = "SELECT * FROM ArticleDetails WHERE id = @ArticleId;";
+            var sql = "SELECT * FROM Article WHERE id = @ArticleId;";
             
             using (var connection = new MySqlConnection(_connectionString))
             {
@@ -32,7 +32,7 @@ namespace Blog.ReadSide.Query
         
         private async Task Handle(GetSectionArticleListItems query)
         {
-            var sql = "SELECT * FROM ArticleDetails WHERE SectionId = @SectionId;";
+            var sql = "SELECT * FROM Article WHERE SectionId = @SectionId;";
             
             using (var connection = new MySqlConnection(_connectionString))
             {

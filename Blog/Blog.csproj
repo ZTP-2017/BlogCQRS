@@ -9,11 +9,6 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Akka, Version=1.3.3.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\..\..\..\.nuget\packages\akka\1.3.3\lib\netstandard1.6\Akka.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Blog.ReadSide\Blog.ReadSide.csproj">
       <Project>{45BA61F6-DD8B-4E2D-8795-E3F697F492FE}</Project>
       <Name>Blog.ReadSide</Name>

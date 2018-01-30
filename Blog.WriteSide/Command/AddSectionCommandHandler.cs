@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Akka.Actor;
-using Blog.WriteSide.Model.WriteSide;
+using Blog.ContextWrite;
+using Blog.Models;
 
 namespace Blog.WriteSide.Command
 {
@@ -13,12 +14,12 @@ namespace Blog.WriteSide.Command
 
         private async Task Handle(AddSectionCommand addSection)
         {
-            var section = new SectionRecord
+            var section = new SectionRecordWrite
             {
                 Name = addSection.Name
             };
             
-            using (var context = new MySqlDbContext())
+            using (var context = new MySqlDbContextWrite())
             {
                 await context.Sections.AddAsync(section);
                 await context.SaveChangesAsync();

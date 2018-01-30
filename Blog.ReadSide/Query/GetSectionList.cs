@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Blog.WriteSide.Model.ReadSide;
+using Blog.ReadSide.Model;
 using Core.CQRS.Query;
 
 namespace Blog.ReadSide.Query

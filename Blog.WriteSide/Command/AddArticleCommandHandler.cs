@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Akka.Actor;
-using Blog.WriteSide.Model.WriteSide;
-using Core.CQRS.Command;
+using Blog.ContextWrite;
+using Blog.Models;
 
 namespace Blog.WriteSide.Command
 {
@@ -14,9 +14,9 @@ namespace Blog.WriteSide.Command
 
         private async Task Handle(AddArticleCommand addArticle)
         {
-            using (var context = new MySqlDbContext())
+            using (var context = new MySqlDbContextWrite())
             {
-                var article = new ArticleRecord
+                var article = new ArticleRecordWrite
                 {
                     SectionId = addArticle.SectionId,
                     Title = addArticle.Title,

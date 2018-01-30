@@ -1,7 +1,8 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Akka.Actor;
-using Blog.WriteSide.Model.ReadSide;
+using Blog.ContextRead;
+using Blog.ContextRead.Models;
+using Blog.ContextWrite;
 using Core.CQRS.Command;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,33 +17,26 @@ namespace Blog.WriteSide.Events
 
         private async Task Handle(SectionAddedEvent @event)
         {
-            using (var context = new MySqlDbContext())
+            SectionRecordRead record;
+            
+            using (var context = new MySqlDbContextWrite())
             {
                 var section = await context.Sections.FirstOrDefaultAsync((x => x.Id == @event.Id));
 
-                var record = new SectionDetailsRecord
+                record = new SectionRecordRead
                 {
                     Id = section.Id,
                     Name = section.Name,
-                    ArticlesCount = 0
                 };
-                
+            }
+            
+            using (var context = new MySqlDbContextRead())
+            {
                 await context.SectionDetails.AddAsync(record);
                 await context.SaveChangesAsync();
             }
             
             Sender.Tell(new CommandResult(), Self);
-        }
-        
-        private async Task Handle(ArticleAddedEvent @event)
-        {
-            using (var context = new MySqlDbContext())
-            {
-                var section = await context.SectionDetails.FirstOrDefaultAsync(x => x.Id == @event.SectionId);
-                section.ArticlesCount = context.Articles.Count(x => x.SectionId == @event.Id);
-                
-                await context.SaveChangesAsync();
-            }
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Akka.Actor;
-using Blog.WriteSide.Model.ReadSide;
+using Blog.ReadSide.Model;
 using Dapper;
 using MySql.Data.MySqlClient;
 
@@ -8,7 +8,7 @@ namespace Blog.ReadSide.Query
 {
     public class SectionHandler : ReceiveActor
     {
-        private readonly string _connectionString = @"Server=localhost;database=blog_cqrs;uid=root;pwd=password;";
+        private readonly string _connectionString = @"Server=localhost;database=blog_read;uid=root;pwd=password;";
 
         public SectionHandler()
         {
@@ -17,7 +17,7 @@ namespace Blog.ReadSide.Query
 
         private async Task Handle(GetSectionList query)
         {
-            var sql = "SELECT * FROM SectionDetails;";
+            var sql = "SELECT * FROM Section;";
             
             using (var connection = new MySqlConnection(_connectionString))
             {

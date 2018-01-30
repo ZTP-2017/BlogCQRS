@@ -2,7 +2,6 @@
 using System.Linq;
 using Blog.ReadSide.Model;
 using Blog.ViewModels;
-using Blog.WriteSide.Model.ReadSide;
 using ArticleDetailsRecord = Blog.ReadSide.Model.ArticleDetailsRecord;
 
 namespace Blog.Common
@@ -14,7 +13,6 @@ namespace Blog.Common
             return new SectionModel
             {
                 Name = section.Name,
-                ArticlesCount = section.ArticlesCount,
                 Articles = articles.ToArray()
             };
         }

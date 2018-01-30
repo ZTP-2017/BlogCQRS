@@ -3,29 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
-namespace Blog.WriteSide.Migrations
+namespace Blog.ContextWrite.Migrations
 {
     public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "ArticleDetails",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Date = table.Column<DateTime>(nullable: false),
-                    ImageUrl = table.Column<string>(nullable: true),
-                    SectionId = table.Column<int>(nullable: false),
-                    Text = table.Column<string>(nullable: true),
-                    Title = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ArticleDetails", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Section",
                 columns: table => new
@@ -37,20 +20,6 @@ namespace Blog.WriteSide.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Section", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SectionDetails",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ArticlesCount = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SectionDetails", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -86,12 +55,6 @@ namespace Blog.WriteSide.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Article");
-
-            migrationBuilder.DropTable(
-                name: "ArticleDetails");
-
-            migrationBuilder.DropTable(
-                name: "SectionDetails");
 
             migrationBuilder.DropTable(
                 name: "Section");

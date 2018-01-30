@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Blog.WriteSide.Model.WriteSide
+namespace Blog.Models
  {
      public class ArticleRecord
      {

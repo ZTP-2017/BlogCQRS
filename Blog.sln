@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.WriteSide", "Blog.Writ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.CQRS", "Core.CQRS\Core.CQRS.csproj", "{DAC24A88-2077-4870-A6E7-5147A291521D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.ContextWrite", "Blog.ContextWrite\Blog.ContextWrite.csproj", "{7533FF77-0285-40A4-AB2C-3029A85F9731}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.ContextRead", "Blog.ContextRead\Blog.ContextRead.csproj", "{E97D349C-1980-4459-A5B1-8E7C56F1354D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{DAC24A88-2077-4870-A6E7-5147A291521D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAC24A88-2077-4870-A6E7-5147A291521D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAC24A88-2077-4870-A6E7-5147A291521D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7533FF77-0285-40A4-AB2C-3029A85F9731}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7533FF77-0285-40A4-AB2C-3029A85F9731}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7533FF77-0285-40A4-AB2C-3029A85F9731}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7533FF77-0285-40A4-AB2C-3029A85F9731}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E97D349C-1980-4459-A5B1-8E7C56F1354D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E97D349C-1980-4459-A5B1-8E7C56F1354D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E97D349C-1980-4459-A5B1-8E7C56F1354D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E97D349C-1980-4459-A5B1-8E7C56F1354D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

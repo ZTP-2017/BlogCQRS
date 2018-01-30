@@ -7,8 +7,6 @@ using Blog.ReadSide;
 using Blog.ReadSide.Model;
 using Blog.ReadSide.Query;
 using Blog.ViewModels;
-using Blog.WriteSide;
-using Blog.WriteSide.Model.ReadSide;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
