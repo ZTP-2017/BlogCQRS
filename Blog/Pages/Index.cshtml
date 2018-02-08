@@ -7,7 +7,7 @@
 <form method="post">
     @foreach (var _section in Model.Sections)
     {
-        <h3 style="margin-top: 10px; background: #000; padding-top: 10px; padding-bottom: 10px; color: #fff; text-align: center; font-weight: 700;">@_section.Name</h3>
+        <h3 style="margin-top: 10px; background: #000; padding-top: 10px; padding-bottom: 10px; color: #fff; text-align: center; font-weight: 700;">@_section.Name ( @_section.ArticlesCount )</h3>
 
         if (_section.Articles.Any())
         {
