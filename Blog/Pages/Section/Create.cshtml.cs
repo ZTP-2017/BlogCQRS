@@ -3,8 +3,6 @@ using Akka.Actor;
 using Blog.ViewModels;
 using Blog.WriteSide;
 using Blog.WriteSide.Command;
-using Blog.WriteSide.Events;
-using Core.CQRS.Command;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -16,12 +14,10 @@ namespace Blog.Pages.Section
         public SectionModel Section { get; set; }
         
         private readonly IActorRef _commandRootActor;
-        private readonly IActorRef _eventRootActor;
         
         public CreateModel(IActorRefFactory actorRefFactory)
         {
             _commandRootActor = actorRefFactory.ActorOf<CommandRootActor>();
-            _eventRootActor = actorRefFactory.ActorOf<EventRootActor>();
         }
         
         public void OnGet()
@@ -39,12 +35,7 @@ namespace Blog.Pages.Section
             var result = await _commandRootActor
                 .Ask<IdCommandResult>(new AddSectionCommand(Section.Name));
 
-            if (result.Success)
-            {
-                await _eventRootActor.Ask<CommandResult>(new SectionAddedEvent(result.Id));
-            }
-
-            return RedirectToPage("/Index");
+            return RedirectToPage(!result.Success ? "/Error" : "/Index");
         }
     }
 }

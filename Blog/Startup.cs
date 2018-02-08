@@ -1,4 +1,6 @@
 using Akka.Actor;
+using Blog.ViewModels;
+using Blog.ReadSide.Model;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,8 +26,16 @@ namespace Blog
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
             
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            
             services.AddSingleton(typeof(IActorRefFactory), (serviceProvider) => ActorSystem.Create("CQRS"));
+
+            var config = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ArticleDetailsRecord, ArticleModel>();
+            });
+
+            var mapper = config.CreateMapper();
+
+            services.AddSingleton(mapper);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

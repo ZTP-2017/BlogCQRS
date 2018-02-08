@@ -4,14 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Akka.Actor;
+using AutoMapper;
 using Blog.ReadSide;
 using Blog.ReadSide.Model;
 using Blog.ReadSide.Query;
 using Blog.ViewModels;
 using Blog.WriteSide;
 using Blog.WriteSide.Command;
-using Blog.WriteSide.Events;
-using Core.CQRS.Command;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -29,14 +28,12 @@ namespace Blog.Pages.Article
         
         private readonly IActorRef _queryRootActor;
         private readonly IActorRef _commandRootActor;
-        private readonly IActorRef _eventRootActor;
         private readonly IHostingEnvironment _hostingEnvironment;
         
         public CreateModel(IActorRefFactory actorRefFactory, IHostingEnvironment hostingEnvironment)
         {
             _queryRootActor = actorRefFactory.ActorOf<QueryRootActor>();
             _commandRootActor = actorRefFactory.ActorOf<CommandRootActor>();
-            _eventRootActor = actorRefFactory.ActorOf<EventRootActor>();
             _hostingEnvironment = hostingEnvironment;
         }
         
@@ -48,7 +45,7 @@ namespace Blog.Pages.Article
             };
             
             Sections = (await _queryRootActor
-                    .Ask<IEnumerable<SectionDetailsRecord>>(new GetSectionList()))
+                .Ask<IEnumerable<SectionDetailsRecord>>(new GetSectionListQuery()))
                 .Select(x => new SelectListItem
                 {
                     Value = x.Id.ToString(),
@@ -71,21 +68,11 @@ namespace Blog.Pages.Article
                 await UploadImage();
             }
 
-            await CreateArticle();
-
-            return RedirectToPage("/Index");
-        }
-        
-        private async Task CreateArticle()
-        {
             var result = await _commandRootActor
-                .Ask<IdCommandResult>(new AddArticleCommand(ArticleModel.SectionId, ArticleModel.Title, 
+                .Ask<IdCommandResult>(new AddArticleCommand(ArticleModel.SectionId, ArticleModel.Title,
                     ArticleModel.Date, ArticleModel.Text, ArticleModel.ImageUrl));
 
-            if (result.Success)
-            {
-                await _eventRootActor.Ask<CommandResult>(new ArticleAddedEvent(result.Id, ArticleModel.SectionId));
-            }
+            return RedirectToPage(result.Success ? "/Index" : "/Error");
         }
         
         private async Task UploadImage()

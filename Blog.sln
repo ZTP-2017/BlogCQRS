@@ -3,19 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog", "Blog\Blog.csproj", "{2272A3DF-9D22-4A03-83F5-D1AE3629A763}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog", "Blog\Blog.csproj", "{2272A3DF-9D22-4A03-83F5-D1AE3629A763}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.ReadSide", "Blog.ReadSide\Blog.ReadSide.csproj", "{45BA61F6-DD8B-4E2D-8795-E3F697F492FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.ReadSide", "Blog.ReadSide\Blog.ReadSide.csproj", "{45BA61F6-DD8B-4E2D-8795-E3F697F492FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.WriteSide", "Blog.WriteSide\Blog.WriteSide.csproj", "{0A62106E-007E-4F4E-BBA3-327E1DC46AE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.WriteSide", "Blog.WriteSide\Blog.WriteSide.csproj", "{0A62106E-007E-4F4E-BBA3-327E1DC46AE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.CQRS", "Core.CQRS\Core.CQRS.csproj", "{DAC24A88-2077-4870-A6E7-5147A291521D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.ContextWrite", "Blog.ContextWrite\Blog.ContextWrite.csproj", "{7533FF77-0285-40A4-AB2C-3029A85F9731}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.ContextRead", "Blog.ContextRead\Blog.ContextRead.csproj", "{E97D349C-1980-4459-A5B1-8E7C56F1354D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.ContextModels", "Blog.ContextModels\Blog.ContextModels.csproj", "{5A7DA871-492E-422A-BCC4-1F63C02082A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.CQRS", "Core.CQRS\Core.CQRS.csproj", "{DAC24A88-2077-4870-A6E7-5147A291521D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,18 +33,6 @@ Global
 		{DAC24A88-2077-4870-A6E7-5147A291521D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAC24A88-2077-4870-A6E7-5147A291521D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAC24A88-2077-4870-A6E7-5147A291521D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7533FF77-0285-40A4-AB2C-3029A85F9731}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7533FF77-0285-40A4-AB2C-3029A85F9731}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7533FF77-0285-40A4-AB2C-3029A85F9731}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7533FF77-0285-40A4-AB2C-3029A85F9731}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E97D349C-1980-4459-A5B1-8E7C56F1354D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E97D349C-1980-4459-A5B1-8E7C56F1354D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E97D349C-1980-4459-A5B1-8E7C56F1354D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E97D349C-1980-4459-A5B1-8E7C56F1354D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5A7DA871-492E-422A-BCC4-1F63C02082A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5A7DA871-492E-422A-BCC4-1F63C02082A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5A7DA871-492E-422A-BCC4-1F63C02082A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5A7DA871-492E-422A-BCC4-1F63C02082A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

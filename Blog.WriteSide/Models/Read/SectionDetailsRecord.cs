@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Blog.ReadSide.Model
+namespace Blog.WriteSide.Models.Read
 {
     public class SectionDetailsRecord
     {

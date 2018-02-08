@@ -9,18 +9,15 @@
 
 <div class="row">
     <div class="col-md-12">
-        @if(Model.ArticleModel.ImageUrl != null)
-        {
-            <img src="@Url.Content(Model.ArticleModel.ImageUrl)" 
-                 width="100%" 
-                 alt="" />
-        }
+        <img src="@Url.Content(Model.ArticleModel.ImageUrl)" 
+                width="100%" 
+                alt="" />
     </div>
 </div>
 
 <div class="row">
     <div class="col-md-12">
-        <h7>@Model.ArticleModel.Date</h7>
+        <h7>@Model.ArticleModel.Date.ToString("MM/dd/yyyy")</h7>
     </div>
 </div>
 

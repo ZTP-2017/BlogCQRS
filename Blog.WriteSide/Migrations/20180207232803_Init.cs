@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
-namespace Blog.ContextWrite.Migrations
+namespace Blog.WriteSide.Migrations
 {
     public partial class Init : Migration
     {
@@ -28,7 +28,7 @@ namespace Blog.ContextWrite.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Date = table.Column<string>(nullable: true),
+                    Date = table.Column<DateTime>(nullable: false),
                     ImageUrl = table.Column<string>(nullable: true),
                     SectionId = table.Column<int>(nullable: false),
                     Text = table.Column<string>(nullable: true),

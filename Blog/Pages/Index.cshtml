@@ -7,22 +7,34 @@
 <form method="post">
     @foreach (var _section in Model.Sections)
     {
-        <h3 style="margin-top: 10px;">@_section.Name</h3>
+        <h3 style="margin-top: 10px; background: #000; padding-top: 10px; padding-bottom: 10px; color: #fff; text-align: center; font-weight: 700;">@_section.Name</h3>
 
         if (_section.Articles.Any())
         {
             foreach (var article in _section.Articles)
             {
                 <hr />
+
                 @Html.HiddenFor(m => @article.Id)
-                <h5>
-                    <a asp-page="./Article/Details"
-                        asp-route-id="@article.Id"
-                        style="font-weight: 700; color: #000000;">
-                        @article.Title
-                    </a>
-                </h5>
-                <h7>@article.Date</h7>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <img src="@Url.Content(article.ImageUrl)"
+                             width="100%"
+                             alt="" />
+                    </div>
+                    <div class="col-md-10">
+                        <h5>
+                            <a asp-page="./Article/Details"
+                               asp-route-id="@article.Id"
+                               style="font-weight: 700; color: #000000;">
+                                @article.Title
+                            </a>
+                        </h5>
+                        <h7>@article.Date.ToString("MM/dd/yyyy")</h7>
+                    </div>
+                </div>
+                
             }
         }
     }

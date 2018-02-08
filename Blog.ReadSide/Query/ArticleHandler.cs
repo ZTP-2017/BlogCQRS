@@ -1,46 +1,29 @@
 ﻿using System.Threading.Tasks;
 using Akka.Actor;
 using Blog.ReadSide.Model;
-using Dapper;
-using MySql.Data.MySqlClient;
+using MongoDB.Driver;
 
 namespace Blog.ReadSide.Query
 {
     public class ArticleHandler : ReceiveActor
     {
-        private readonly string _connectionString = @"Server=localhost;database=blog_read;uid=root;pwd=password;";
+        private readonly IMongoDatabase _mongoDb;
 
         public ArticleHandler()
         {
-            ReceiveAsync<GetArticleDetails>(Handle);
-            ReceiveAsync<GetSectionArticleListItems>(Handle);
+            var client = new MongoClient("mongodb://localhost:27017");
+            _mongoDb = client.GetDatabase("blog_read");
+
+            ReceiveAsync<GetArticleDetailsQuery>(Handle);
         }
 
-        private async Task Handle(GetArticleDetails query)
+        private async Task Handle(GetArticleDetailsQuery query)
         {
-            var sql = "SELECT * FROM Article WHERE id = @ArticleId;";
-            
-            using (var connection = new MySqlConnection(_connectionString))
-            {
-                var result = await connection
-                    .QuerySingleAsync<ArticleDetailsRecord>(
-                        sql, new { ArticleId = query.Id });
-                
-                Sender.Tell(result, Self);
-            }
-        }
-        
-        private async Task Handle(GetSectionArticleListItems query)
-        {
-            var sql = "SELECT * FROM Article WHERE SectionId = @SectionId;";
-            
-            using (var connection = new MySqlConnection(_connectionString))
-            {
-                var result = await connection
-                    .QueryAsync<ArticleListItemRecord>(sql, new { SectionId = query.Id });
-                
-                Sender.Tell(result, Self);
-            }
+            var collection = _mongoDb.GetCollection<ArticleDetailsRecord>("articles");
+            var filter = Builders<ArticleDetailsRecord>.Filter.Eq(x => x.Id, query.Id);
+            var result = (await collection.FindAsync(filter)).FirstOrDefault();
+
+            Sender.Tell(result, Self);
         }
     }
 }

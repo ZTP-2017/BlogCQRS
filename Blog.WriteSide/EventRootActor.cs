@@ -7,16 +7,16 @@ namespace Blog.WriteSide
     {
         public EventRootActor()
         {
-            var articleDetailsEventHandler = Context.ActorOf<ArticleDetailsEventHandler>();
-            var sectionDetailsEventHandler = Context.ActorOf<SectionDetailsEventHandler>();
+            var articleDetailsEventHandler = Context.ActorOf<ArticleDetailsEventsHandler>();
+            var sectionDetailsEventHandler = Context.ActorOf<SectionDetailsEventsHandler>();
 
-            Receive<SectionAddedEvent>(message => sectionDetailsEventHandler.Forward(message));
-
-            Receive<ArticleAddedEvent>(message =>
+            Receive<SaveArticleEvent>(message =>
             {
                 articleDetailsEventHandler.Forward(message);
                 sectionDetailsEventHandler.Forward(message);
             });
+
+            Receive<SaveSectionEvent>(message => sectionDetailsEventHandler.Forward(message));
         }
     }
 }

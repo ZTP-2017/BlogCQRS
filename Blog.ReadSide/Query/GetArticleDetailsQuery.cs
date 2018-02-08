@@ -3,11 +3,11 @@ using Core.CQRS.Query;
 
 namespace Blog.ReadSide.Query
 {
-    public class GetArticleDetails : IQuery<ArticleDetailsRecord>
+    public class GetArticleDetailsQuery : IQuery<ArticleDetailsRecord>
     {
         public int Id { get; }
 
-        public GetArticleDetails(int id)
+        public GetArticleDetailsQuery(int id)
         {
             Id = id;
         }

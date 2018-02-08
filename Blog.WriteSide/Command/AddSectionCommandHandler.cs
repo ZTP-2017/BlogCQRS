@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Akka.Actor;
-using Blog.ContextModels;
-using Blog.ContextWrite;
+using Blog.WriteSide.Events;
+using Blog.WriteSide.Models.Write;
+using Core.CQRS.Command;
 
 namespace Blog.WriteSide.Command
 {
@@ -14,18 +15,21 @@ namespace Blog.WriteSide.Command
 
         private async Task Handle(AddSectionCommand addSection)
         {
-            var section = new SectionRecord
+            var record = new SectionRecord
             {
                 Name = addSection.Name
             };
             
-            using (var context = new MySqlDbContextWrite())
+            using (var context = new MySqlDbContext())
             {
-                await context.Sections.AddAsync(section);
+                await context.Sections.AddAsync(record);
                 await context.SaveChangesAsync();
             }
-        
-            Sender.Tell(new IdCommandResult(section.Id), Self);
+
+            await Context.ActorOf<EventRootActor>()
+                .Ask<CommandResult>(new SaveSectionEvent(record.Id));
+
+            Sender.Tell(new IdCommandResult(record.Id), Self);
         }
     }
 }

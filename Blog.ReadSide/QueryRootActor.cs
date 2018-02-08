@@ -10,13 +10,12 @@ namespace Blog.ReadSide
             var articleHandlerProps = Props.Create<ArticleHandler>();
             var articleHandler = Context.ActorOf(articleHandlerProps);
             
-            Receive<GetArticleDetails>(message => articleHandler.Forward(message));
-            Receive<GetSectionArticleListItems>(message => articleHandler.Forward(message));
+            Receive<GetArticleDetailsQuery>(message => articleHandler.Forward(message));
 
             var sectionHandlerProps = Props.Create<SectionHandler>();
             var sectionHandler = Context.ActorOf(sectionHandlerProps);
 
-            Receive<GetSectionList>(message => sectionHandler.Forward(message));
+            Receive<GetSectionListQuery>(message => sectionHandler.Forward(message));
         }
     }
 }

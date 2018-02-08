@@ -1,4 +1,4 @@
-﻿namespace Blog.ReadSide.Model
+﻿namespace Blog.WriteSide.Models.Read
 {
     public class ArticleDetailsRecord : ArticleListItemRecord
     {

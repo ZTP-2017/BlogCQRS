@@ -4,7 +4,7 @@ using Core.CQRS.Query;
 
 namespace Blog.ReadSide.Query
 {
-    public class GetSectionList : IQuery<IEnumerable<SectionDetailsRecord>>
+    public class GetSectionListQuery : IQuery<IEnumerable<SectionDetailsRecord>>
     {
         
     }

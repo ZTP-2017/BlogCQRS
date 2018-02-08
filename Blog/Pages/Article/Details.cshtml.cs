@@ -1,6 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 using Akka.Actor;
-using Blog.Common;
+using AutoMapper;
 using Blog.ReadSide;
 using Blog.ReadSide.Model;
 using Blog.ReadSide.Query;
@@ -16,10 +17,12 @@ namespace Blog.Pages.Article
         public ArticleModel ArticleModel { get; set; }
         
         private readonly IActorRef _queryRootActor;
-        
-        public DetailsModel(IActorRefFactory actorRefFactory)
+        private readonly IMapper _mapper;
+
+        public DetailsModel(IActorRefFactory actorRefFactory, IMapper mapper)
         {
             _queryRootActor = actorRefFactory.ActorOf<QueryRootActor>();
+            _mapper = mapper;
         }
         
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -30,9 +33,9 @@ namespace Blog.Pages.Article
             }
 
             var article = await _queryRootActor
-                .Ask<ArticleDetailsRecord>(new GetArticleDetails(id.Value));
+                .Ask<ArticleDetailsRecord>(new GetArticleDetailsQuery(id.Value));
 
-            ArticleModel = Helpers.MapToArticleModel(article);
+            ArticleModel = _mapper.Map<ArticleModel>(article);
 
             return Page();
         }

@@ -2,11 +2,11 @@
 
 namespace Blog.WriteSide.Events
 {
-    public class SectionAddedEvent : IEvent
+    public class SaveSectionEvent : IEvent
     {
         public int Id { get; }
 
-        public SectionAddedEvent(int id)
+        public SaveSectionEvent(int id)
         {
             Id = id;
         }
